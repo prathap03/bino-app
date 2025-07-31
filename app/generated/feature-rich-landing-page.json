@@ -1,0 +1,90 @@
+{
+  "components": [
+    {
+      "type": "ImageBlock",
+      "props": {
+        "src": "/images/hero-lg.jpg",
+        "alt": "Stunning landscape with modern architecture",
+        "aspect": "hero",
+        "animation": "fadeInDown",
+        "delay": 0.2
+      }
+    },
+    {
+      "type": "TextSection",
+      "props": {
+        "title": "Unleash Your Potential with Our Platform",
+        "subtitle": "Discover innovative solutions tailored for your success",
+        "text": "Our platform is designed to empower individuals and businesses alike. With a focus on user experience and cutting-edge technology, we provide the tools you need to thrive in a dynamic world.",
+        "alignment": "center",
+        "size": "lg",
+        "gradient": "from-blue-500 to-teal-500",
+        "animation": "fadeInUp",
+        "delay": 0.4
+      }
+    },
+    {
+      "type": "StatsBox",
+      "props": {
+        "label": "Happy Customers",
+        "value": "50,000+",
+        "icon": "😊",
+        "size": "xl",
+        "animation": "bounce",
+        "delay": 0.6
+      }
+    },
+    {
+      "type": "Card",
+      "props": {
+        "title": "Seamless Integration",
+        "description": "Connect with your favorite tools effortlessly.",
+        "image": "/images/integration-icon.png",
+        "linkText": "Learn More",
+        "linkHref": "/features/integration",
+        "variant": "glass",
+        "animation": "float",
+        "delay": 0.8
+      }
+    },
+    {
+      "type": "Card",
+      "props": {
+        "title": "24/7 Support",
+        "description": "Our dedicated team is always here to help.",
+        "image": "/images/support-icon.png",
+        "linkText": "Contact Us",
+        "linkHref": "/support",
+        "variant": "gradient",
+        "gradientColors": "from-purple-500 to-pink-500",
+        "animation": "scale",
+        "delay": 1
+      }
+    },
+    {
+      "type": "CTA",
+      "props": {
+        "heading": "Ready to Transform Your Business?",
+        "subheading": "Join thousands of satisfied users today!",
+        "ctaText": "Start Your Free Trial",
+        "href": "/signup",
+        "pattern": true,
+        "variant": "large",
+        "animation": "fadeInUp",
+        "delay": 1.2
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Feature-Rich Landing Page - Dynamic Pages",
+    "description": "Explore the full capabilities of our dynamic page creation API with this complex landing page example.",
+    "tags": [
+      "landing-page",
+      "features",
+      "showcase",
+      "dynamic"
+    ]
+  },
+  "createdAt": "2025-07-31T03:11:52.965Z",
+  "slug": "feature-rich-landing-page"
+}

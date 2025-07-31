@@ -1,0 +1,42 @@
+{
+    "components": [
+      {
+        "type": "TextSection",
+        "props": {
+          "title": "Welcome!",
+          "text": "This is a dynamically generated page."
+        }
+      },
+      {
+        "type": "ImageBlock",
+        "props": {
+          "src": "https://imgs.search.brave.com/CjgECQwb6oqimpgKcd495EefVvWVFvMsnkwhMWh96H8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jb25j/ZXB0by5kZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAxOC8wOC93/ZWItMi4wLWUxNTM0/Nzc5MTMxNDAwLTgw/MHg0MDAuanBn",
+          "alt": "Sample Image"
+        }
+      },
+      {
+        "type": "Card",
+        "props": {
+          "title": "Cool Card",
+          "content": "Reusable and animated!"
+        }
+      },
+      {
+        "type": "StatsBox",
+        "props": {
+          "stats": [
+            { "label": "Users", "value": "12K" },
+            { "label": "Sales", "value": "3.4K" }
+          ]
+        }
+      },
+      {
+        "type": "CTA",
+        "props": {
+          "text": "Join Now",
+          "href": "/signup"
+        }
+      }
+    ]
+  }
+  

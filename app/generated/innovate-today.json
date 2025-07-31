@@ -1,0 +1,90 @@
+{
+  "components": [
+    {
+      "type": "ImageBlock",
+      "props": {
+        "src": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?fit=crop&w=1920&q=80",
+        "alt": "Modern office space with team collaborating",
+        "aspect": "hero",
+        "animation": "fadeInDown",
+        "delay": 0.2
+      }
+    },
+    {
+      "type": "TextSection",
+      "props": {
+        "title": "Innovate with Us",
+        "subtitle": "Solutions for a dynamic world",
+        "text": "Our platform empowers businesses with cutting-edge tools and a focus on user experience. Achieve more, faster.",
+        "alignment": "center",
+        "size": "lg",
+        "gradient": "from-blue-500 to-teal-500",
+        "animation": "fadeInUp",
+        "delay": 0.4
+      }
+    },
+    {
+      "type": "StatsBox",
+      "props": {
+        "label": "Clients Served",
+        "value": "50,000+",
+        "icon": "😊",
+        "size": "xl",
+        "animation": "bounce",
+        "delay": 0.6
+      }
+    },
+    {
+      "type": "Card",
+      "props": {
+        "title": "Easy Integration",
+        "description": "Connect seamlessly with all your favorite tools.",
+        "image": "https://images.unsplash.com/photo-1621243805935-430c2d334e2c?fit=crop&w=400&q=80",
+        "linkText": "Learn More",
+        "linkHref": "/features/integration",
+        "variant": "glass",
+        "animation": "float",
+        "delay": 0.8
+      }
+    },
+    {
+      "type": "Card",
+      "props": {
+        "title": "24/7 Support",
+        "description": "Our dedicated team is here whenever you need us.",
+        "image": "https://images.unsplash.com/photo-1542328221-a44415891397?fit=crop&w=400&q=80",
+        "linkText": "Get Help",
+        "linkHref": "/support",
+        "variant": "gradient",
+        "gradientColors": "from-purple-500 to-pink-500",
+        "animation": "scale",
+        "delay": 1
+      }
+    },
+    {
+      "type": "CTA",
+      "props": {
+        "heading": "Ready for change?",
+        "subheading": "Join thousands of innovators today!",
+        "ctaText": "Start Free Trial",
+        "href": "/signup",
+        "pattern": true,
+        "variant": "large",
+        "animation": "fadeInUp",
+        "delay": 1.2
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Innovate Today - Dynamic Pages",
+    "description": "A dynamic landing page showcasing innovative solutions and key features.",
+    "tags": [
+      "innovation",
+      "tech",
+      "platform",
+      "solutions"
+    ]
+  },
+  "createdAt": "2025-07-31T03:13:17.646Z",
+  "slug": "innovate-today"
+}

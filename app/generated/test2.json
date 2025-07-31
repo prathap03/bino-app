@@ -1,0 +1,181 @@
+{
+  "components": [
+    {
+      "type": "ImageBlock",
+      "props": {
+        "src": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80",
+        "alt": "Diverse team collaborating in a modern, sunlit office",
+        "aspect": "hero",
+        "animation": "fadeInDown",
+        "delay": 0.1,
+        "overlay": "dark",
+        "overlayOpacity": 0.4,
+        "caption": "Where ideas take flight."
+      }
+    },
+    {
+      "type": "TextSection",
+      "props": {
+        "title": "Unleash",
+        "subtitle": "Your full potential, powered by our platform.",
+        "text": "In today's fast-paced digital landscape, staying ahead means embracing innovation. Our platform provides the **foundational tools** and **dynamic capabilities** you need to transform complex challenges into actionable solutions. Discover how we empower you to build, scale, and succeed.",
+        "alignment": "center",
+        "size": "xl",
+        "gradient": "from-blue-600 to-purple-600",
+        "animation": "fadeInUp",
+        "delay": 0.3,
+        "paddingY": "py-20",
+        "buttons": [
+          {
+            "text": "Discover Features",
+            "href": "/features",
+            "variant": "primary"
+          },
+          {
+            "text": "See It in Action",
+            "href": "/demo",
+            "variant": "secondary"
+          }
+        ]
+      }
+    },
+    {
+      "type": "StatsBox",
+      "props": {
+        "stats": [
+          {
+            "label": "Innovations",
+            "value": "1200+",
+            "icon": "✨"
+          },
+          {
+            "label": "Growth",
+            "value": "75% YoY",
+            "icon": "📈"
+          },
+          {
+            "label": "Community",
+            "value": "50K+ Users",
+            "icon": "🤝"
+          },
+          {
+            "label": "Uptime",
+            "value": "99.9%",
+            "icon": "⚡"
+          }
+        ],
+        "layout": "grid-4",
+        "animation": "staggered-fadeInUp",
+        "delay": 0.5,
+        "backgroundColor": "bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800",
+        "paddingY": "py-16"
+      }
+    },
+    {
+      "type": "Card",
+      "props": {
+        "title": "Core Features",
+        "description": "Powerful capabilities designed to accelerate your progress.",
+        "cards": [
+          {
+            "title": "Automation",
+            "description": "Streamline workflows and reduce manual effort.",
+            "image": "https://images.unsplash.com/photo-1555949963-aa79dce09038?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+            "linkText": "Automate Now",
+            "linkHref": "/features/automation",
+            "variant": "glass",
+            "animation": "float",
+            "hoverEffect": "glow"
+          },
+          {
+            "title": "Analytics",
+            "description": "Gain deep insights with comprehensive data visualization.",
+            "image": "https://images.unsplash.com/photo-1551288259-cd7c64c78ac3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+            "linkText": "Explore Data",
+            "linkHref": "/features/analytics",
+            "variant": "gradient",
+            "gradientColors": "from-green-500 to-teal-500",
+            "animation": "scale",
+            "hoverEffect": "shadow-lg"
+          },
+          {
+            "title": "Collaboration",
+            "description": "Foster team synergy with integrated communication tools.",
+            "image": "https://images.unsplash.com/photo-1522071820081-000c0175b253?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+            "linkText": "Team Up",
+            "linkHref": "/features/collaboration",
+            "variant": "default",
+            "animation": "hover",
+            "hoverEffect": "border-highlight"
+          }
+        ],
+        "columns": 3,
+        "gap": "gap-8",
+        "paddingY": "py-20",
+        "backgroundColor": "bg-gray-50 dark:bg-gray-900",
+        "textColor": "text-gray-900 dark:text-white"
+      }
+    },
+    {
+      "type": "TextSection",
+      "props": {
+        "title": "Approach",
+        "subtitle": "Our philosophy for your success.",
+        "text": "We believe in a **client-centric approach**, combining agile methodologies with continuous feedback. Our dedicated experts work hand-in-hand with you, ensuring every solution is precisely tailored to your unique needs and future aspirations. Innovation isn't just a buzzword for us; it's our guiding principle.",
+        "alignment": "left",
+        "size": "md",
+        "animation": "fadeInRight",
+        "delay": 1,
+        "maxWidth": "max-w-3xl",
+        "paddingY": "py-16",
+        "image": "https://images.unsplash.com/photo-1507238691740-ad4d81ae53fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+        "imagePosition": "right",
+        "imageAlt": "Creative team working on strategy"
+      }
+    },
+    {
+      "type": "ImageBlock",
+      "props": {
+        "src": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80",
+        "alt": "Abstract technology background with glowing lines",
+        "aspect": "wide",
+        "animation": "zoomIn",
+        "delay": 1.2,
+        "overlay": "gradient",
+        "overlayColors": "to-transparent from-blue-900",
+        "caption": "The future is now. Are you ready?",
+        "paddingY": "py-24"
+      }
+    },
+    {
+      "type": "CTA",
+      "props": {
+        "heading": "Ready?",
+        "subheading": "Let's build something extraordinary together. Contact us today for a personalized consultation.",
+        "ctaText": "Get Started",
+        "href": "/contact-us",
+        "pattern": true,
+        "variant": "full-width",
+        "animation": "fadeInUp",
+        "delay": 1.4,
+        "backgroundColor": "bg-gradient-to-r from-teal-600 to-emerald-700",
+        "textColor": "text-white",
+        "paddingY": "py-20"
+      }
+    }
+  ],
+  "metadata": {
+    "title": "Innovate - Future Forward Solutions",
+    "description": "Explore our comprehensive platform designed to unleash your potential with advanced features, insightful analytics, and dedicated support. Transform your vision into reality.",
+    "tags": [
+      "innovation",
+      "technology",
+      "platform",
+      "solutions",
+      "digital transformation",
+      "future"
+    ]
+  },
+  "createdAt": "2025-07-31T03:15:44.452Z",
+  "slug": "test2"
+}
