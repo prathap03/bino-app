@@ -1,0 +1,23 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Page {
+  id         Int      @id @default(autoincrement())
+  slug       String   @unique @db.VarChar(100) // Ensure slug is unique
+  components Json     @db.JsonB // Store components array as JSONB
+  metadata   Json?    @db.JsonB  // Store metadata as JSONB (optional)
+  createdAt  DateTime @map("created_at") @default(now())
+  updatedAt  DateTime @map("updated_at") @updatedAt
+
+  @@map("pages") // Map to a table named 'pages' in your database
+}

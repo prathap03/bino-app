@@ -1,6 +1,35 @@
 import { writeFile, mkdir, access } from 'fs/promises';
 import path from 'path';
 import { NextRequest } from 'next/server';
+import { PrismaClient } from '@prisma/client'; // Import PrismaClient
+
+// Instantiate PrismaClient.
+// It's generally recommended to create a singleton instance for PrismaClient
+// across your Next.js application to avoid exhausting database connections
+// in serverless environments.
+// For example, you might create a `lib/prisma.ts` file:
+//
+// // lib/prisma.ts
+// import { PrismaClient } from '@prisma/client'
+//
+// const prismaClientSingleton = () => {
+//   return new PrismaClient()
+// }
+//
+// declare global {
+//   var prismaGlobal: undefined | ReturnType<typeof prismaClientSingleton>
+// }
+//
+// const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
+//
+// export default prisma
+//
+// if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
+//
+// If you use the singleton pattern, you would then `import prisma from '@/lib/prisma';`
+// and remove `const prisma = new PrismaClient();` from this file.
+// For this example, we'll keep the direct instantiation.
+const prisma = new PrismaClient();
 
 // Types for better type safety
 interface ComponentBlock {
@@ -227,7 +256,6 @@ const ensureDirectoryExists = async (dirPath: string): Promise<void> => {
  */
 export async function POST(req: NextRequest) {
   try {
-    // Parse request body with error handling
     let body: CreatePageRequest;
     try {
       body = await req.json();
@@ -238,7 +266,7 @@ export async function POST(req: NextRequest) {
         {
           code: 'INVALID_JSON',
           message: 'Request body must be valid JSON',
-          details: { error: error instanceof Error ? error.message : 'Unknown parsing error' }
+          details: { error: error instanceof Error ? error.message : 'Unknown parsing error' },
         },
         400
       );
@@ -246,151 +274,120 @@ export async function POST(req: NextRequest) {
 
     const { slug, components, metadata } = body;
 
-    // Comprehensive validation
-    if (!slug) {
+    // --- Start Validation Logic (keep as is) ---
+    // List of slugs that are reserved by Next.js or your app structure
+    const RESERVED_SLUGS = ['api', 'documentation', '_next', 'static', 'public', 'favicon.ico'];
+    if (RESERVED_SLUGS.includes(slug.toLowerCase())) {
       return createResponse(
         false,
         undefined,
         {
-          code: 'MISSING_SLUG',
-          message: 'Slug is required',
-          details: { received: typeof slug }
+          code: 'RESERVED_SLUG',
+          message: `Slug '${slug}' is a reserved system path and cannot be used for a page.`,
+          details: { slug, reserved: RESERVED_SLUGS }
         },
         400
       );
     }
 
-    if (!validateSlug(slug)) {
-      return createResponse(
-        false,
-        undefined,
-        {
-          code: 'INVALID_SLUG',
-          message: 'Slug must be 1-100 characters and contain only letters, numbers, hyphens, and underscores',
-          details: { received: slug, pattern: '^[a-zA-Z0-9-_]+$' }
-        },
-        400
-      );
+    if (!slug || !validateSlug(slug)) {
+        return createResponse(false, undefined, { code: 'INVALID_SLUG', message: 'Invalid or missing slug' }, 400);
     }
-
-    if (!Array.isArray(components)) {
-      return createResponse(
-        false,
-        undefined,
-        {
-          code: 'INVALID_COMPONENTS',
-          message: 'Components must be an array',
-          details: { received: typeof components }
-        },
-        400
-      );
+    if (!Array.isArray(components) || components.length === 0) {
+        return createResponse(false, undefined, { code: 'INVALID_COMPONENTS', message: 'Components array is required and cannot be empty' }, 400);
     }
-
-    if (components.length === 0) {
-      return createResponse(
-        false,
-        undefined,
-        {
-          code: 'EMPTY_COMPONENTS',
-          message: 'At least one component is required',
-          details: { componentCount: 0 }
-        },
-        400
-      );
-    }
-
-    // Validate each component
     const invalidComponents: Array<{ index: number; error: string }> = [];
     components.forEach((component, index) => {
-      if (!validateComponent(component)) {
-        invalidComponents.push({
-          index,
-          error: `Invalid component at index ${index}. Must have 'type' (one of: ${VALID_COMPONENT_TYPES.join(', ')}) and 'props' object`
-        });
-      }
+        if (!validateComponent(component)) {
+            invalidComponents.push({
+                index,
+                error: `Invalid component at index ${index}. Must have 'type' (one of: ${VALID_COMPONENT_TYPES.join(', ')}) and 'props' object`
+            });
+        }
     });
-
     if (invalidComponents.length > 0) {
-      return createResponse(
-        false,
-        undefined,
-        {
-          code: 'INVALID_COMPONENT_STRUCTURE',
-          message: 'One or more components have invalid structure',
-          details: {
-            invalidComponents,
-            validTypes: VALID_COMPONENT_TYPES
-          }
-        },
-        400
-      );
+        return createResponse(false, undefined, { code: 'INVALID_COMPONENT_STRUCTURE', message: 'One or more components have invalid structure', details: { invalidComponents, validTypes: VALID_COMPONENT_TYPES } }, 400);
     }
+    // --- End Validation Logic ---
 
-    // Ensure directory exists
-    const generatedDir = path.join(process.cwd(), 'app', 'generated');
-    await ensureDirectoryExists(generatedDir);
 
-    const filePath = path.join(generatedDir, `${slug}.json`);
-
-    // Check if file already exists
     try {
-      await access(filePath);
+      // *** MODIFIED: Use Prisma to create a new record in the Supabase database ***
+      const newPage = await prisma.page.create({
+        data: {
+          slug: slug,
+          components: components as any, // Cast to any for Json type handling
+          metadata: metadata as any,    // Cast to any for Json? type handling
+        },
+      });
+
+      // If you are using revalidation for SSG/ISR, you could trigger it here:
+      // import { revalidatePath } from 'next/cache'; // Add this import at the top
+      // revalidatePath(`/${slug}`); // Example if you want to revalidate the page immediately
+
+      return createResponse(
+        true,
+        {
+          id: newPage.id, // Return the database ID
+          slug: newPage.slug,
+          url: `/${newPage.slug}`, // The public URL for the dynamically created page
+          componentCount: components.length,
+          metadata: newPage.metadata,
+        },
+        undefined,
+        201
+      );
+    } catch (dbError: any) {
+      // Handle unique constraint violation (Prisma error code P2002)
+      if (dbError.code === 'P2002') {
+        return createResponse(
+          false,
+          undefined,
+          {
+            code: 'PAGE_EXISTS',
+            message: `Page with slug '${slug}' already exists in the database.`,
+            details: { slug },
+          },
+          409
+        );
+      }
+      console.error('Database error creating page:', dbError);
       return createResponse(
         false,
         undefined,
         {
-          code: 'PAGE_EXISTS',
-          message: `Page with slug '${slug}' already exists`,
-          details: { slug, filePath: `app/generated/${slug}.json` }
+          code: 'DATABASE_ERROR',
+          message: 'Failed to save page to database.',
+          details: process.env.NODE_ENV === 'development' ? dbError.message : undefined,
         },
-        409
+        500
       );
-    } catch {
-      // File doesn't exist, which is what we want
     }
-
-    // Create page data
-    const pageData = {
-      components,
-      ...(metadata && { metadata }),
-      createdAt: new Date().toISOString(),
-      slug
-    };
-
-    // Write file
-    await writeFile(filePath, JSON.stringify(pageData, null, 2), 'utf8');
-
-    // Success response
-    return createResponse(
-      true,
-      {
-        slug,
-        url: `/${slug}`,
-        filePath: `app/generated/${slug}.json`,
-        componentCount: components.length,
-        ...(metadata && { metadata })
-      },
-      undefined,
-      201
-    );
-
   } catch (error) {
-    console.error('Error creating page:', error);
+    console.error('Error in POST handler (outer catch):', error);
     return createResponse(
       false,
       undefined,
       {
         code: 'INTERNAL_ERROR',
-        message: 'An unexpected error occurred while creating the page',
-        details: process.env.NODE_ENV === 'development' ? {
-          error: error instanceof Error ? error.message : 'Unknown error',
-          stack: error instanceof Error ? error.stack : undefined
-        } : undefined
+        message: 'An unexpected error occurred while processing the request.',
+        details:
+          process.env.NODE_ENV === 'development'
+            ? {
+                error: error instanceof Error ? error.message : 'Unknown error',
+                stack: error instanceof Error ? error.stack : undefined,
+              }
+            : undefined,
       },
       500
     );
+  } finally {
+    // Disconnect Prisma client if not using a singleton pattern.
+    // With a singleton (recommended for Vercel/serverless), you often don't explicitly disconnect here.
+    // await prisma.$disconnect();
   }
 }
+
 
 /**
  * @openapi
